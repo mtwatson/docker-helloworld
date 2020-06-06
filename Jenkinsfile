@@ -13,7 +13,7 @@ pipeline {
          }
          stage('Build') {
              steps {
-                 sh 'sudo docker build --tag mtwatson/udacity-docker-milestone .'
+                 sh 'sudo docker build --tag mtwatson/udacity-docker-final .'
                  sh 'docker image ls'
              }
          }
