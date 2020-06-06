@@ -21,8 +21,6 @@ pipeline {
          }
          stage('Publish') {
              steps {
-                 sh' echo $USER_CREDENTIALS_USR'
-                 sh' echo $USER_CREDENTIALS_PSW'
                 // withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
                 //     sh '''
                 //         dockerpath="mtwatson/udacity-docker-final"
@@ -30,7 +28,7 @@ pipeline {
                 //     '''
                 // }
                 sh '''
-                    sudo docker login -u "yourusername" -p "yourpassword"
+                    sudo docker login -u $USER_CREDENTIALS_USR -p $USER_CREDENTIALS_PSW
                     sudo docker build --tag mtwatson/udacity-docker-final .
                 '''
              }
