@@ -16,6 +16,9 @@ LABEL maintainer="Karthik Gaekwad"
 # RUN echo "deb http://archive.ubuntu.com/ubuntu/ raring main universe" >> /etc/apt/sources.list
 
 # Update the repository
+# NOTE: Hadolint rule DL3009 is disabled here, because we need to ensure we can install the specified packages. 
+# On line 29 we perform the necessary clean up.
+# hadolint disable=DL3009
 RUN apt-get update
 
 # Install necessary tools
