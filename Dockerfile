@@ -30,12 +30,12 @@ RUN apt-get clean \
 RUN rm -v /etc/nginx/nginx.conf
 
 # Copy a configuration file from the current directory
-ADD nginx.conf /etc/nginx/
+COPY nginx.conf /etc/nginx/
 
 RUN mkdir /etc/nginx/logs
 
 # Add a sample index file
-ADD index.html /www/data/
+COPY index.html /www/data/
 
 # Append "daemon off;" to the beginning of the configuration
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
