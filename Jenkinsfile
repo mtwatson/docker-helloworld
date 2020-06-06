@@ -20,14 +20,12 @@ pipeline {
          stage('Publish') {
              steps {
                 withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
-                    steps {
-                        sh '''
-                            dockerpath="mtwatson/udacity-docker-final"
-                            dockerId=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^mtwatson/udacity-docker-final " | cut -d' ' -f2)
-                            sudo docker commit $dockerId mtwatson/udacity-docker-final
-                            sudo docker push $dockerpath
-                        '''
-                    }
+                    sh '''
+                        dockerpath="mtwatson/udacity-docker-final"
+                        dockerId=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^mtwatson/udacity-docker-final " | cut -d' ' -f2)
+                        sudo docker commit $dockerId mtwatson/udacity-docker-final
+                        sudo docker push $dockerpath
+                    '''
                 }
              }
          }
