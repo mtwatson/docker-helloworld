@@ -9,7 +9,7 @@ pipeline {
                  sh 'make install-hadolint'
              }
          }
-         stage('Lint Dockerfile and Python') {
+         stage('Lint Dockerfile') {
              steps {
                  sh 'make lint'
              }
@@ -21,12 +21,6 @@ pipeline {
          }
          stage('Publish') {
              steps {
-                // withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
-                //     sh '''
-                //         dockerpath="mtwatson/udacity-docker-final"
-                //         sudo docker push mtwatson/udacity-docker-final
-                //     '''
-                // }
                 sh '''
                     sudo docker login -u $USER_CREDENTIALS_USR -p $USER_CREDENTIALS_PSW
                     sudo docker build --tag mtwatson/udacity-docker-final .
