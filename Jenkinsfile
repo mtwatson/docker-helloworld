@@ -30,6 +30,7 @@ pipeline {
                 sh '''
                     sudo docker login -u $USER_CREDENTIALS_USR -p $USER_CREDENTIALS_PSW
                     sudo docker build --tag mtwatson/udacity-docker-final .
+                    sudo docker push mtwatson/udacity-docker-final
                 '''
              }
          }
