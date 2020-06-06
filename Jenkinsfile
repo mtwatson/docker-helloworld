@@ -23,19 +23,12 @@ pipeline {
          }
          stage('Publish') {
              steps {
-                // withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
-                //     sh '''
-                //         dockerpath="mtwatson/udacity-docker-final"
-                //         sudo docker push mtwatson/udacity-docker-final
-                //     '''
-                // }
-                script {
-                    docker.withRegistry( '', registryCredential) {
-                        dockerImage.push()
-                    }
+                withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
+                    sh '''
+                        dockerpath="mtwatson/udacity-docker-final"
+                        sudo docker push mtwatson/udacity-docker-final
+                    '''
                 }
-      
-
              }
          }
      }
