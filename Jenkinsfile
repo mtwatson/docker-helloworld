@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        registry = "mtwatson/udacity-docker-final"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
      agent any
      stages {
          stage('Install Dependencies') {
@@ -18,12 +23,19 @@ pipeline {
          }
          stage('Publish') {
              steps {
-                withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
-                    sh '''
-                        dockerpath="mtwatson/udacity-docker-final"
-                        sudo docker push $dockerpath
-                    '''
+                // withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
+                //     sh '''
+                //         dockerpath="mtwatson/udacity-docker-final"
+                //         sudo docker push mtwatson/udacity-docker-final
+                //     '''
+                // }
+                script {
+                    docker.withRegistry( '', registryCredential) {
+                        dockerImage.push()
+                    }
                 }
+      
+
              }
          }
      }
