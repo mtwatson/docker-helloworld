@@ -14,7 +14,6 @@ pipeline {
          stage('Build') {
              steps {
                  sh 'sudo docker build --tag mtwatson/udacity-docker-final .'
-                 sh 'docker image ls'
              }
          }
          stage('Publish') {
@@ -22,8 +21,6 @@ pipeline {
                 withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
                     sh '''
                         dockerpath="mtwatson/udacity-docker-final"
-                        dockerId=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^mtwatson/udacity-docker-final " | cut -d' ' -f2)
-                        sudo docker commit $dockerId mtwatson/udacity-docker-final
                         sudo docker push $dockerpath
                     '''
                 }
