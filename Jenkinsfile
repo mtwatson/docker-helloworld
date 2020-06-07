@@ -1,7 +1,6 @@
 pipeline {
     environment {
         DOCKER_CREDENTIALS = credentials('dockerhub');
-        AWS_CREDENTIALS = credentials('aws-cred')
     }
      agent any
      stages {
