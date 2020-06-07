@@ -35,12 +35,14 @@ pipeline {
                     sh "kubectl config use-context arn:aws:eks:us-east-2:406472470974:cluster/ridiculous-outfit-1591456936"
                     sh "kubectl set image deployments/udacity-docker-final udacity-docker-final=mtwatson/udacity-docker-final:latest"
                     sh "kubectl apply -f deployment.yml"
+                    sh "kubectl rollout status deployment udacity-docker-final"
+                    sh "kubectl get deployments"
                 }
             }
          }
          stage('Clean Up') {
              steps {
-                sh "docker system prune"
+                sh "sudo docker system prune"
              }
          }
      }
