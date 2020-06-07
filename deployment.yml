@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: udacity-docker-final
-  replicas: 2
+  replicas: 4
   strategy:
     rollingUpdate: 
       maxSurge: 30%
