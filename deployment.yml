@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld
+  name: udacity-docker-final
 spec:
   selector:
     matchLabels:
-      app: helloworld
+      app: udacity-docker-final
   replicas: 2
   strategy:
     rollingUpdate: 
@@ -15,10 +15,10 @@ spec:
   template: 
     metadata:
       labels:
-        app: helloworld
+        app: udacity-docker-final
     spec:
       containers:
-      - name: helloworld
+      - name: udacity-docker-final
         image: mtwatson/udacity-docker-final:latest
         ports:
         - containerPort: 80
@@ -26,11 +26,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
- name: helloworld
+ name: udacity-docker-final
 spec:
  type: LoadBalancer
  selector:
-   app: helloworld
+   app: udacity-docker-final
  ports:
    - name: client
      protocol: TCP
@@ -38,4 +38,4 @@ spec:
      targetPort: 80
      nodePort: 32080
  selector:
-   app: helloworld
+   app: udacity-docker-final
