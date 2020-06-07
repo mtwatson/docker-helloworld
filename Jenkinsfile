@@ -1,6 +1,7 @@
 pipeline {
     environment {
-        USER_CREDENTIALS = credentials('dockerhub');
+        DOCKER_CREDENTIALS = credentials('dockerhub');
+        AWS_CREDENTIALS = credentials('aws-cred')
     }
      agent any
      stages {
@@ -22,7 +23,7 @@ pipeline {
          stage('Publish') {
              steps {
                 sh '''
-                    sudo docker login -u $USER_CREDENTIALS_USR -p $USER_CREDENTIALS_PSW
+                    sudo docker login -u $DOCKER_CREDENTIALS_USR -p $DOCKER_CREDENTIALS_PSW
                     sudo docker build --tag mtwatson/udacity-docker-final .
                     sudo docker push mtwatson/udacity-docker-final
                 '''
@@ -33,7 +34,7 @@ pipeline {
                 withAWS(credentials: 'aws-cred', region: 'us-east-2') {
                     sh "aws eks --region us-east-2 update-kubeconfig --name ridiculous-outfit-1591456936"
                     sh "kubectl config use-context arn:aws:eks:us-east-2:406472470974:cluster/ridiculous-outfit-1591456936"
-                    sh "kubectl set image deployments/udacity-docker-final mtwatson/udacity-docker-final=mtwatson/udacity-docker-final:latest"
+                    sh "kubectl set image deployments/udacity-docker-final udacity-docker-final=mtwatson/udacity-docker-final:latest"
                     sh "kubectl apply -f deployment.yml"
                 }
             }
